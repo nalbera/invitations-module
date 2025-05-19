@@ -8,6 +8,14 @@ const generateUsersUtils = async () => {
 
         await dbConnect();
 
+        const currentUsers = await User.find();
+
+        if(currentUsers){
+            console.error('The users collection already contains generated users');
+            process.exit(1);
+        }  
+        
+
         let passwordHashed;
         const arrayData = data.map((user) => {
             passwordHashed = bcrypt.hashSync(user.password, 10);
