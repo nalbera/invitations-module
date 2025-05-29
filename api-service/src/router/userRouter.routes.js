@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { loginUserController, userProfileController } from "../controllers/users/index.js";
-import { loginSchema } from "../schemas/inex.js";
+import { loginSchema } from "../schemas/index.js";
 
 import authUserMiddleware from "../middlewares/authUserMiddleware.js";
 import validationsMiddleware from "../middlewares/validationsMiddleware.js";
