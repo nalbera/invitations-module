@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createInvitationsController, createQrCodeController } from "../controllers/invitations/index.js";
+import { createInvitationsController, createQrCodeController, listInvitationsController } from "../controllers/invitations/index.js";
 import { createInvitationsSchema } from "../schemas/index.js";
 
 import authUserMiddleware from "../middlewares/authUserMiddleware.js";
@@ -12,5 +12,7 @@ const invitationsRouter = Router();
 invitationsRouter.post('/', authUserMiddleware, validationsMiddleware(createInvitationsSchema), createInvitationsController);
 
 invitationsRouter.get('/qr-invitation/:invitationId', authUserMiddleware, createQrCodeController);
+
+invitationsRouter.get('/', authUserMiddleware, listInvitationsController);
 
 export default invitationsRouter;
