@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createInvitationsController, createQrCodeController, listInvitationsController } from "../controllers/invitations/index.js";
+import { createInvitationsController, createQrCodeController, listInvitationsController, getInvitationDetailController, deleteInvitationController } from "../controllers/invitations/index.js";
 import { createInvitationsSchema } from "../schemas/index.js";
 
 import authUserMiddleware from "../middlewares/authUserMiddleware.js";
@@ -14,5 +14,9 @@ invitationsRouter.post('/', authUserMiddleware, validationsMiddleware(createInvi
 invitationsRouter.get('/qr-invitation/:invitationId', authUserMiddleware, createQrCodeController);
 
 invitationsRouter.get('/', authUserMiddleware, listInvitationsController);
+
+invitationsRouter.get('/:invitationId', authUserMiddleware, getInvitationDetailController);
+
+invitationsRouter.delete('/delete/:invitationId', authUserMiddleware, deleteInvitationController);
 
 export default invitationsRouter;
