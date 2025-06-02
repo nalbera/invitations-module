@@ -1,11 +1,17 @@
+import { Route, Routes } from "react-router-dom";
 
+import LoginPage from "./pages/LoginPage";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   
 
   return (
     <>
-      <h3>Invitation App</h3>
+        <NavBar />
+        <Routes>
+            <Route path="/" element={<LoginPage />} />
+        </Routes>
     </>
   )
 }
