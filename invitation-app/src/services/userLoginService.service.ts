@@ -10,7 +10,7 @@ const userLoginService = async (userName: string, password: string): Promise<str
     
     if(!response.ok) throw new Error(json.message);
 
-    return json.message;
+    return json.token;
 }
 
 export default userLoginService;

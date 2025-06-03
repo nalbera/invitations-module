@@ -1,6 +1,9 @@
-import { useState } from "react"
-import userLoginService from "../../services/userLoginService.service";
+import { useState, useContext } from "react"
+import { AuthContext } from "../../context/AuthContext";
 
+import userLoginService from "../../services/userLoginService.service";
+import type { UserContextType } from "../../types/types";
+import InvitationsComponent from "../Invitations/InvitationsComponent";
 
 const FormLoginComponent: React.FC = () => {
     const [userName, setUserName] = useState('');
@@ -8,6 +11,8 @@ const FormLoginComponent: React.FC = () => {
     const [error, setError] = useState('');
 
     const [loading, setLoading] = useState(false);
+
+    const {token, setToken} = useContext(AuthContext) as UserContextType;
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -19,7 +24,9 @@ const FormLoginComponent: React.FC = () => {
 
             setLoading(true);
 
-            await userLoginService(userName, password);
+            const resp = await userLoginService(userName, password);
+            
+            setToken(resp);
             
             setLoading(false);
 
@@ -31,8 +38,7 @@ const FormLoginComponent: React.FC = () => {
         }
     } 
     
-
-    return (
+    return !token?.length ? (
         <div className="d-flex justify-content-center align-items-center vh-100">
             <div className="container">
                 <div className="row">
@@ -95,6 +101,8 @@ const FormLoginComponent: React.FC = () => {
                 </div>
             </div>
         </div>
+    ) : (
+        <InvitationsComponent />
     )
 }
 
