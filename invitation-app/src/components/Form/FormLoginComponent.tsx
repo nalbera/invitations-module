@@ -1,4 +1,5 @@
 import { useState } from "react"
+import userLoginService from "../../services/userLoginService.service";
 
 
 const FormLoginComponent: React.FC = () => {
@@ -17,17 +18,9 @@ const FormLoginComponent: React.FC = () => {
         try {
 
             setLoading(true);
+
+            await userLoginService(userName, password);
             
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/user/login`, {
-                method: 'POST',
-                headers: {'Content-type': 'application/json'},
-                body: JSON.stringify({userName, password})
-            });
-
-            const json = await response.json();
-
-            if(!response.ok) throw new Error(json.message);
-
             setLoading(false);
 
         } catch (error) {
