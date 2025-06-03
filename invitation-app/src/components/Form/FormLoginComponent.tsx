@@ -1,12 +1,13 @@
 import { useState } from "react"
 
+
 const FormLoginComponent: React.FC = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const [loading, setLoading] = useState(false);
-   
+
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -27,8 +28,8 @@ const FormLoginComponent: React.FC = () => {
 
             if(!response.ok) throw new Error(json.message);
 
-            
             setLoading(false);
+
         } catch (error) {
             if(error instanceof Error){
                 setError(error.message)
@@ -36,6 +37,7 @@ const FormLoginComponent: React.FC = () => {
             }
         }
     } 
+    
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
@@ -71,6 +73,7 @@ const FormLoginComponent: React.FC = () => {
                                                     <input type="password" className="form-control" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="off" />
                                                 </div>
                                             </div>
+                                            { error ? <p className="font-monospace red-500">{ error }</p> : null }
                                             {
                                                 !loading ?
                                                     <div className="col-12">
@@ -83,7 +86,6 @@ const FormLoginComponent: React.FC = () => {
                                                     </div>
                                                 </div>
                                             }
-                                            { error ? <p className="font-monospace red-500">{ error }</p> : null }
                                         </form>
                                     </div>
                                 </div>
