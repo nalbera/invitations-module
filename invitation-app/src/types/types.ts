@@ -13,9 +13,3 @@ export type UserContextType = {
     setToken: (token: string) => void;
     logout: () => void;
 }
-
-export type RespType = {
-    status?: string;
-    message?: string;
-    token?: string;
-}

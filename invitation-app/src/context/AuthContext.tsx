@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import type { AuthProps } from "./types";
+import tokenExpiredUtils from "../utils/tokenExpiredUtils";
+import useUserLogged from "../hooks/useUserLogged";
 
 const AuthContext = createContext({});
 
@@ -7,46 +9,21 @@ const AuthContextProvider: React.FC<AuthProps> = ({ children }) => {
 
     const [token, setToken] = useState(localStorage.getItem('token'));
 
-    const [userLogged, setUserLogged] = useState();
-
     useEffect(() => {
 
         if(token?.length) {
+            if(tokenExpiredUtils(token)){
+                logout();
+                return;
+            }
             localStorage.setItem('token', token);
         }
     },[token]);
 
+    const currentToken = token || '';
 
-    useEffect(() => {
-        const getDataUserLogged = async () => {
-            try {
-                
-                const {VITE_API_URL} = import.meta.env;
-
-                if(token) {
-                    const response = await fetch(`${VITE_API_URL}/user/profile`, {
-                        headers: {
-                            authorization: token
-                        }
-                    })
-                    const json = await response.json();
-
-                    if(!response.ok) throw new Error(json.message);
-
-                    setUserLogged(json.data);
-                }
-
-            } catch (error) {
-                if(error instanceof Error) {
-                    logout();
-                }
-            }   
-        }
-
-        getDataUserLogged();
-
-    },[token]);
-
+    const userLogged = useUserLogged(currentToken);
+        
     const logout = () => {
         setToken('');
         localStorage.removeItem('token');
