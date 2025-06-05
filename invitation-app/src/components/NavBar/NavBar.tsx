@@ -17,6 +17,7 @@ const NavBar: React.FC = () => {
             </button>
             <div className="collapse navbar-collapse " id="menu">
               <ul className="navbar-nav me-auto">
+                <li className="nav-item"><a href="#" className="nav-link active">Perfil</a></li>
                 <li className="nav-item"><a href="#" className="nav-link active">Salir</a></li>
               </ul>
             </div>
