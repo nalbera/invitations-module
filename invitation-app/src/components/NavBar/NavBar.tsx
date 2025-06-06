@@ -1,7 +1,12 @@
-
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import type { UserContextType } from "../../types/types";
 
 
 const NavBar: React.FC = () => {
+
+  const { logout } = useContext(AuthContext) as UserContextType;
+
   return (
     <nav className="navbar navbar-dark bg-primary navbar-expand-md">
         <div className="container-fluid">
@@ -18,7 +23,7 @@ const NavBar: React.FC = () => {
             <div className="collapse navbar-collapse " id="menu">
               <ul className="navbar-nav me-auto">
                 <li className="nav-item"><a href="#" className="nav-link active">Perfil</a></li>
-                <li className="nav-item"><a href="#" className="nav-link active">Salir</a></li>
+                <li className="nav-item"><a className="nav-link active" role="button" onClick={() => logout()}>Salir</a></li>
               </ul>
             </div>
         </div>

@@ -33,11 +33,6 @@ const InvitationsComponent = () => {
     setCurrentPage(pageNumber);
   }
 
-  // const pageNumbers: number[] = [];
-  // for(let i=1; i <= Math.ceil(invitations.length / itemPerPage); i++){
-  //   pageNumbers.push(i);
-  // }
-  
   return invitations.length ? (
     <>
         <header className="container">
@@ -75,21 +70,15 @@ const InvitationsComponent = () => {
               <tr>
                 <td colSpan={5}>
                   <nav aria-label="...">
-                    {/* <ul className="pagination d-flex justify-content-center align-items-center" id="pagination">
-                          {
-                            pageNumbers && pageNumbers?.map((num) => (
-                              <li className="page-item" aria-current="page" key={num}>
-                                  <a className="page-link" role="button"  onClick={() => pagination(num)} >{num}</a>
-                              </li>
-                            ))
-                          }
-                    </ul> */}
                     <Paged itemPerPage={itemPerPage} invitations={invitations} pagination={pagination}/>
                   </nav>
                 </td>
               </tr>
             </tfoot>
-          </table>   
+          </table>
+          <div>
+            <button type="button" className="btn btn-primary btn-sm">Nueva Invitación</button>
+          </div> 
         </main>
         <ModalDetail show={show} handleClose={handleClose} invitationId={invitationId} />
     </>

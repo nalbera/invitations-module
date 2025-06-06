@@ -27,7 +27,8 @@ const FormLoginComponent: React.FC = () => {
             const resp = await userLoginService(userName, password);
             
             setToken(resp);
-            
+            setUserName('');
+            setPassword('');
             setLoading(false);
 
         } catch (error) {

@@ -1,53 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import type { Invitations, ModalDetailType, UserContextType } from '../../types/types';
-import { AuthContext } from '../../context/AuthContext';
+import type { ModalDetailType } from '../../types/types';
+
+import useInvitation from '../../hooks/useInvitation';
+import useQrCode from '../../hooks/useQrCode';
 
 
 const ModalDetail: React.FC<ModalDetailType> = ({show, handleClose, invitationId}) => {
 
-    const [invitation, setInvitation] = useState<Invitations>();
-    const [qrCode, setQrCode] = useState<string>('');
-    
-    const { token } = useContext(AuthContext) as UserContextType;
-
-    useEffect(() => {
-        const getInvitation = async (invitationId: string) => {
-            try {
-                                
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/invitation/detail/${invitationId}`, {
-                    headers: {
-                        authorization: token
-                    }
-                });
-                
-                const qrResponse = await fetch(`${import.meta.env.VITE_API_URL}/invitation/qr-invitation/${invitationId}`, {
-                    headers: {
-                        authorization: token
-                    }
-                });
-
-                const qr = await qrResponse.json();
-
-                setQrCode(qr.qr);
-
-                const json = await response.json();
-    
-                if(!response.ok) throw new Error(json.message);
-
-                setInvitation(json.data);
-                
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        getInvitation(invitationId);
-
-    },[invitationId, token]);
-    
+    const invitation = useInvitation(invitationId);
+    const qrCode = useQrCode(invitationId);
     
     return (
         <Modal show={show} onHide={handleClose}>
