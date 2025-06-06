@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import type { Invitations, UserContextType } from "../../types/types";
+import type { UserContextType } from "../../types/types";
 import ModalDetail from "../Modal/ModalDetail";
+import useInvitations from "../../hooks/useInvitations";
 
 const InvitationsComponent = () => {
 
   const { token } = useContext(AuthContext) as UserContextType;
 
-  const [invitations, setInvitations] = useState<Invitations[]>([]);
   const [invitationId, setInvitationId] = useState('');
 
   const [curretPage, setCurrentPage] = useState(1);
@@ -17,31 +17,12 @@ const InvitationsComponent = () => {
   const handleClose = () => setShow(false);
   
   const handleShow = (id: string) => {
-    console.log(invitationId);
-    
     setInvitationId(id);
     setShow(true)
   };
-
-  useEffect(() => {
-    const getAllInvitations = async () => {
-
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/invitation`, {
-        headers :{
-          authorization: token
-        }
-      });
-
-      const json = await response.json();
-
-      if (!response.ok) throw new Error(json.message);
-
-      setInvitations(json.data)
-    }
-
-    getAllInvitations();
-  }, [token]);
   
+  const invitations = useInvitations(token);
+
   const indexLastInvitations = curretPage * itemPerPage;
   const indexFirstInvitations = indexLastInvitations - itemPerPage;
   const actualInvitations = invitations?.slice(indexFirstInvitations, indexLastInvitations);
