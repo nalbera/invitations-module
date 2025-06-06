@@ -15,7 +15,7 @@ invitationsRouter.get('/qr-invitation/:invitationId', authUserMiddleware, create
 
 invitationsRouter.get('/', authUserMiddleware, listInvitationsController);
 
-invitationsRouter.get('/:invitationId', authUserMiddleware, getInvitationDetailController);
+invitationsRouter.get('/detail/:invitationId', authUserMiddleware, getInvitationDetailController);
 
 invitationsRouter.delete('/delete/:invitationId', authUserMiddleware, deleteInvitationController);
 
