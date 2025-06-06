@@ -28,3 +28,9 @@ export type ModalDetailType = {
     show: boolean;
     handleClose: () => void;
 }
+
+export type PagedType = {
+    itemPerPage: number;
+    invitations: Invitations[];
+    pagination: (pageNumber: number) => void;
+}

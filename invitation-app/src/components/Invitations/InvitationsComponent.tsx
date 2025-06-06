@@ -1,8 +1,10 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Paged from "../Paged/Paged";
 import type { UserContextType } from "../../types/types";
 import ModalDetail from "../Modal/ModalDetail";
 import useInvitations from "../../hooks/useInvitations";
+
 
 const InvitationsComponent = () => {
 
@@ -31,10 +33,10 @@ const InvitationsComponent = () => {
     setCurrentPage(pageNumber);
   }
 
-  const pageNumbers: number[] = [];
-  for(let i=1; i <= Math.ceil(invitations.length / itemPerPage); i++){
-    pageNumbers.push(i);
-  }
+  // const pageNumbers: number[] = [];
+  // for(let i=1; i <= Math.ceil(invitations.length / itemPerPage); i++){
+  //   pageNumbers.push(i);
+  // }
   
   return invitations.length ? (
     <>
@@ -43,7 +45,7 @@ const InvitationsComponent = () => {
         </header>
         <main className="container">
           <div className="text-center">
-            <p>{`Pagina ${curretPage} de ${pageNumbers.length}`}</p>
+            <p>{`Pagina ${curretPage}`}</p>
           </div>
           <table className="table" id="table-invitations">
             <thead id="thead-invitations">
@@ -73,7 +75,7 @@ const InvitationsComponent = () => {
               <tr>
                 <td colSpan={5}>
                   <nav aria-label="...">
-                    <ul className="pagination d-flex justify-content-center align-items-center" id="pagination">
+                    {/* <ul className="pagination d-flex justify-content-center align-items-center" id="pagination">
                           {
                             pageNumbers && pageNumbers?.map((num) => (
                               <li className="page-item" aria-current="page" key={num}>
@@ -81,7 +83,8 @@ const InvitationsComponent = () => {
                               </li>
                             ))
                           }
-                    </ul>
+                    </ul> */}
+                    <Paged itemPerPage={itemPerPage} invitations={invitations} pagination={pagination}/>
                   </nav>
                 </td>
               </tr>
