@@ -1,16 +1,27 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import type { Invitations, UserContextType } from "../../types/types";
+import ModalDetail from "../Modal/ModalDetail";
 
 const InvitationsComponent = () => {
 
   const { token } = useContext(AuthContext) as UserContextType;
 
   const [invitations, setInvitations] = useState<Invitations[]>([]);
+  const [invitationId, setInvitationId] = useState('');
 
   const [curretPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(6);
-  const [totalPage, setTotalPage] = useState(0);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  
+  const handleShow = (id: string) => {
+    console.log(invitationId);
+    
+    setInvitationId(id);
+    setShow(true)
+  };
 
   useEffect(() => {
     const getAllInvitations = async () => {
@@ -50,6 +61,9 @@ const InvitationsComponent = () => {
           <h2>Invitaciones</h2>
         </header>
         <main className="container">
+          <div className="text-center">
+            <p>{`Pagina ${curretPage} de ${pageNumbers.length}`}</p>
+          </div>
           <table className="table" id="table-invitations">
             <thead id="thead-invitations">
               <tr>
@@ -64,9 +78,12 @@ const InvitationsComponent = () => {
                   <tr key={index}>
                     <td>{row.fullName}</td>
                     <td>{new Date(row.entryDate).toLocaleDateString()}</td>
-                    <td><i className="bi bi-qr-code-scan"></i></td>
-                    <td><i className="bi bi bi-eye-fill"></i></td>
-                    <td><i className="bi bi-trash3"></i></td>
+                    <td>
+                      <i className="bi bi bi-eye-fill" onClick={() => handleShow(row._id)} role="button"></i>
+                    </td>
+                    <td>
+                      <i className="bi bi-trash3"></i>
+                    </td>
                   </tr>
                 ))
               }
@@ -75,25 +92,14 @@ const InvitationsComponent = () => {
               <tr>
                 <td colSpan={5}>
                   <nav aria-label="...">
-                    <ul className="pagination" id="pagination">
-                      <li className="page-item">
-                        <a className="page-link disabled" href="#" tabIndex="-1" aria-disabled="true" role="button" id="previusButton">Anterior</a>
-                      </li>
-                      {/* <li className="page-item"><a className="page-link" href="#">1</a></li>
-                      <li className="page-item active" aria-current="page">
-                        <a className="page-link" href="#">2</a>
-                      </li>
-                      <li className="page-item"><a className="page-link" href="#">3</a></li> */}
-                      {
-                        pageNumbers && pageNumbers?.map((num) => (
-                           <li className="page-item active" aria-current="page" key={num}>
-                              <a className="page-link"  onClick={() => pagination(num)}>{num}</a>
-                           </li>
-                        ))
-                      }
-                      <li className="page-item">
-                        <a className="page-link" role="button" id="nextButton">Siguiente</a>
-                      </li>
+                    <ul className="pagination d-flex justify-content-center align-items-center" id="pagination">
+                          {
+                            pageNumbers && pageNumbers?.map((num) => (
+                              <li className="page-item" aria-current="page" key={num}>
+                                  <a className="page-link" role="button"  onClick={() => pagination(num)} >{num}</a>
+                              </li>
+                            ))
+                          }
                     </ul>
                   </nav>
                 </td>
@@ -101,6 +107,7 @@ const InvitationsComponent = () => {
             </tfoot>
           </table>   
         </main>
+        <ModalDetail show={show} handleClose={handleClose} invitationId={invitationId} />
     </>
   ) : (
     <header className="container">

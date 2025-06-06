@@ -15,10 +15,16 @@ export type UserContextType = {
 }
 
 export type Invitations = {
-    id: string;
+    _id: string;
     userId: string;
     fullName: string;
     entryDate: Date;
     entryTime: string;
     expirationDate: Date
+}
+
+export type ModalDetailType = {
+    invitationId: string;
+    show: boolean;
+    handleClose: () => void;
 }
