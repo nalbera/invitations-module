@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import type { AuthProps } from "./types";
 import tokenExpiredUtils from "../utils/tokenExpiredUtils";
 import useUserLogged from "../hooks/useUserLogged";
@@ -8,6 +10,8 @@ const AuthContext = createContext({});
 const AuthContextProvider: React.FC<AuthProps> = ({ children }) => {
 
     const [token, setToken] = useState(localStorage.getItem('token'));
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -27,6 +31,7 @@ const AuthContextProvider: React.FC<AuthProps> = ({ children }) => {
     const logout = () => {
         setToken('');
         localStorage.removeItem('token');
+        navigate('/');
     }
  
     return (

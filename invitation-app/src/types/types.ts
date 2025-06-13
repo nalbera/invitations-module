@@ -35,6 +35,7 @@ export type InvitationModal = {
 }
 
 export type ModalDetailType = {
+    token?: string;
     invitationId: string;
     show: boolean;
     handleClose: () => void;

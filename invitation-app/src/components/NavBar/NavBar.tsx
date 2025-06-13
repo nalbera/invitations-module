@@ -6,7 +6,7 @@ import type { UserContextType } from "../../types/types";
 
 const NavBar: React.FC = () => {
 
-  const { logout } = useContext(AuthContext) as UserContextType;
+  const { logout, token } = useContext(AuthContext) as UserContextType;
 
   return (
     <nav className="navbar navbar-dark bg-primary navbar-expand-md">
@@ -18,12 +18,16 @@ const NavBar: React.FC = () => {
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse " id="menu">
-              <ul className="navbar-nav me-auto">
-                <li className="nav-item"><a href="#" className="nav-link active">Perfil</a></li>
-                <li className="nav-item"><a className="nav-link active" role="button" onClick={() => logout()}>Salir</a></li>
-              </ul>
-            </div>
+            {
+              token ? (
+                    <div className="collapse navbar-collapse " id="menu">
+                      <ul className="navbar-nav me-auto">
+                        <li className="nav-item"><a href="#" className="nav-link active">Perfil</a></li>
+                        <li className="nav-item"><a className="nav-link active" role="button" onClick={() => logout()}>Salir</a></li>
+                      </ul>
+                    </div>
+              ) : null
+            }
         </div>
     </nav>
   )

@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Paged from "../Paged/Paged";
 import type { UserContextType } from "../../types/types";
 import ModalDetail from "../Modal/ModalDetail";
+import ModalDelete from "../Modal/ModalDelete";
 import useInvitations from "../../hooks/useInvitations";
 
 
@@ -19,11 +20,19 @@ const InvitationsComponent = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   
+  const [showDelete, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+
   const handleShow = (id: string) => {
     setInvitationId(id);
     setShow(true)
   };
   
+  const handleTrash = (id: string) => {
+    setInvitationId(id);
+    setShowDelete(true);
+  }
+
   const invitations = useInvitations(token);
 
   const indexLastInvitations = curretPage * itemPerPage;
@@ -61,7 +70,7 @@ const InvitationsComponent = () => {
                       <i className="bi bi bi-eye-fill" onClick={() => handleShow(row._id)} role="button"></i>
                     </td>
                     <td>
-                      <i className="bi bi-trash3"></i>
+                      <i className="bi bi-trash3" onClick={() => handleTrash(row._id)} role="button" ></i>
                     </td>
                   </tr>
                 ))
@@ -84,6 +93,7 @@ const InvitationsComponent = () => {
           </div> 
         </main>
         <ModalDetail show={show} handleClose={handleClose} invitationId={invitationId} />
+        <ModalDelete show={showDelete} handleClose={handleCloseDelete} invitationId={invitationId} token={token} />
     </>
   ) : (
     <header className="container">
