@@ -11,7 +11,10 @@ const useQrCode = (invitationId: string) => {
     const { token } = useContext(AuthContext) as UserContextType;
 
     useEffect(() => {
-        const getQrCode =  async (invitationId: string) => {
+
+        if(!invitationId) return;
+
+        const getQrCode =  async () => {
             try {
 
                 const qr = await getQrCodeService(token, invitationId);
@@ -23,7 +26,7 @@ const useQrCode = (invitationId: string) => {
             }
         }
 
-        getQrCode(invitationId);
+        getQrCode();
 
     }, [invitationId, token]);
 

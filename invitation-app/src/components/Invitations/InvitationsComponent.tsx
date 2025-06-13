@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Paged from "../Paged/Paged";
 import type { UserContextType } from "../../types/types";
@@ -77,7 +78,9 @@ const InvitationsComponent = () => {
             </tfoot>
           </table>
           <div>
-            <button type="button" className="btn btn-primary btn-sm">Nueva Invitación</button>
+            <Link to={'/invitation'}>
+              <button type="button" className="btn btn-primary btn-sm">Nueva Invitación</button>
+            </Link>
           </div> 
         </main>
         <ModalDetail show={show} handleClose={handleClose} invitationId={invitationId} />
@@ -86,6 +89,9 @@ const InvitationsComponent = () => {
     <header className="container">
           <h2>Invitaciones</h2>
           <p>No hay entradas para mostrar</p>
+          <Link to={'/invitation'}>
+              <button type="button" className="btn btn-primary btn-sm">Nueva Invitación</button>
+          </Link>
     </header>
   )
 }

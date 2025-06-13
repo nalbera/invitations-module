@@ -20,7 +20,18 @@ export type Invitations = {
     fullName: string;
     entryDate: Date;
     entryTime: string;
-    expirationDate: Date
+    expirationDate: Date;
+    qrCode?: string;
+}
+
+export type InvitationModal = {
+    invitationId: string | undefined;
+    fullName: string | undefined;
+    entryDate: Date | undefined;
+    entryTime: string | undefined;
+    expirationDate: Date | undefined;
+    show: boolean;
+    handleClose: () => void;
 }
 
 export type ModalDetailType = {
