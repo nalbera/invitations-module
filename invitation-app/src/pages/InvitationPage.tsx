@@ -6,7 +6,7 @@ import FormLoginComponent from "../components/Form/FormLoginComponent"
 
 
 
-const InvitationPage = () => {
+const InvitationPage: React.FC = () => {
 
   const {token} = useContext(AuthContext) as UserContextType;
 

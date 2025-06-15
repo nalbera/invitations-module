@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
               token ? (
                     <div className="collapse navbar-collapse " id="menu">
                       <ul className="navbar-nav me-auto">
-                        <li className="nav-item"><a href="#" className="nav-link active">Perfil</a></li>
+                        <li className="nav-item"><Link to={'/profile'} className="nav-link active">Perfil</Link></li>
                         <li className="nav-item"><a className="nav-link active" role="button" onClick={() => logout()}>Salir</a></li>
                       </ul>
                     </div>
