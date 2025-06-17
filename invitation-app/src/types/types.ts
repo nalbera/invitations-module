@@ -41,6 +41,11 @@ export type ModalDetailType = {
     handleClose: () => void;
 }
 
+export type ModalSessionExpiredType = {
+    show: boolean;
+    handleClose: () => void;
+}
+
 export type PagedType = {
     itemPerPage: number;
     invitations: Invitations[];
