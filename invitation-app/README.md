@@ -1,54 +1,49 @@
-# React + TypeScript + Vite
+# Modulo creación Invitaciones a complejo de departamentos Privados
+## Proyecto personal de práctica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Descripción
+El módulo forma parte de una supuesta aplicación de administración de condomino de departamentos.
+Cuenta con módulos especializados para gestión de anuncios y quejas, control de acceso de visitas y proveedores;
+finanzas y reserva de espacios comunes.
+Se trata de un incremento en la funcionalidad del producto completo; y se requiere que los usuarios puedan generar invitaciones digitales para sus invitados en forma de QR,
+que podrán compartir con sus invitados para acelerar el proceso de entrada a su residencia.
 
-Currently, two official plugins are available:
+Los datos son obtenidos desde una API propia que se encuentra dentro del mismo proyecto desarrollada en Express contra una base de datos Mongo.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requisitos previos:
+- Node.js
+- npm
+- MongoDB
 
-## Expanding the ESLint configuration
+## Instalación
+Para instalar todas las dependencias necesarias:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+#### API (backend)
+```bash
+cd api-service
+npm install
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+#### Front
+```bash
+cd invitation-app
+npm install
 ```
+## Ejecución en desarrollo
+
+#### API
+```bash
+npm run generateUsers
+npm run dev
+```
+El servicio se ejecutará en `http://localhost:3001` 
+generateUsers: se ejecuta una sola vez para hecer una pre-carga de usuarios que se supone ya fueron creados por los administradores de la aplicación.
+#### Front
+```bash
+npm run dev
+```
+La aplicación se ejecutará en `http://localhost:5173`
+
+### Funcionalidades:
+- Login de usuario
+- Gestión de invitaciones
+

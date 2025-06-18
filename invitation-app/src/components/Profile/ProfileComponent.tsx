@@ -23,7 +23,7 @@ const ProfileComponent: React.FC = () => {
                   width={"150px"}
                   height={"150px"}
                 />
-                <p>Loguedo como:</p>
+                <p>Loguedo como</p>
               </div>
               <div className="card-body">
                 <i className="bi bi-person" /> {firstName} {lastName}
